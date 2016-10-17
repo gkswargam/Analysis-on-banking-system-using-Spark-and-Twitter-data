@@ -1,2 +1,2 @@
 # Analysis-on-banking-system-using-Spark-and-Twitter-data
-In this project we have analyzed twitter data using big data tool Apache Spark.
+Our application draws insights from the data available on Twitter based on the tweets posted by banks, their users and by common people. As banks find Twitter as an indispensable tool for communication, so we collected twitter data using twitter API and used the Big Data tool Spark for analysis. We have shown the analysis by writing different analytical queries in Spark and visualizing them through D3.js.
