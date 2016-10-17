@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Banking Analysis System</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="tooplate_style.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="css/nivo-slider.css" type="text/css"
+	media="screen" />
+
+<style>
+svg {
+	font: 10px sans-serif;
+}
+
+.bar rect {
+	fill: steelblue;
+	shape-rendering: crispEdges;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.line {
+	fill: none;
+	stroke: purple;
+	stroke-width: 1.5px;
+}
+</style>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+	type="text/javascript"></script>
+<script src="js/jquery.nivo.slider.js" type="text/javascript"></script>
+<script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+	<div id="tooplate_wrapper">
+		<div id="tooplate_header">
+			<div id="site_title"></div>
+		</div>
+		<!-- end of forever header -->
+
+		<div id="tooplate_menu">
+			<ul>
+				<li><a href="Home.html" class="current">Home</a></li>
+				<li><a href="about.html">About Us</a></li>
+				<li><a href="gallery.html">Gallery</a></li>
+				<li><a href="contact.html" class="last">Contact</a></li>
+			</ul>
+		</div>
+		<!-- end of tooplate_menu -->
+
+		<div id="tooplate_main">
+			<div id="tooplate_content">
+				<div id="homepage_slider">
+
+					<form id="form1" method="Post" action="BankAnalysisQueries">
+						<h1 align="center">
+							<font style="font-family: Times New Roman;"> Analytical
+								Queries</font>
+						</h1>
+						<br /> <br />
+						<table align="center" width="520">
+							<tr>
+								<td></td>
+								<td><font size="3">Select Query</font></td>
+								<td>:</td>
+								<td><select name="query_selection">
+										<option value="0">Select Query Option</option>
+										<option value="1">1. Popular Banks based on followers</option>
+										<option value="2">2. Most Interested Type of Loan</option>
+										<option value="3">3. People's Opinion on Bank Security</option>
+										<option value="4">4. Languages mostly used to tweet on Banks</option>
+										<option value="5">5. Most tweeted Time About Banks</option>
+										<option value="6">6. Type of Investment People
+											Interested in</option>
+										<option value="7">7. Service wise top 7 Banks</option>
+										<option value="8">8.Commercial Vs Investment Banks Tweet
+											Percentage</option>
+
+								</select></td>
+								<td><input type="submit" value="Submit"></td>
+							</tr>
+							
+						</table>
+
+					</form>
+
+
+				</div>
+				<p align="center">
+					<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTYPE
+						OF INVESTMENT PEOPLE INTERESTED IN</b>
+				</p>
+				<svg id="chart"
+					style="width: 1000; height: 500; padding-left: 20px;"></svg>
+			</div>
+
+			<div id="tooplate_sidebar">
+				<div class="sidbar_box">
+					<a href="#"><img src="images/logo2.jpg" alt="250x250 ad" /></a>
+				</div>
+
+			</div>
+			<div class="cleaner"></div>
+
+
+
+		</div>
+		<!-- end of main -->
+
+		<div id="tooplate_footer_wrapper">
+
+
+			<div id="tooplate_copyright">
+
+				Copyright © 2016 <a href="#">Banking Analysis System</a>
+			</div>
+		</div>
+	</div>
+	<!-- end of wrapper -->
+
+	<script>
+		var m = {
+			top : 50,
+			right : 50,
+			bottom : 50,
+			left : 50
+		}, h = 500 - m.top - m.bottom, w = 960 - m.left - m.right, barWidth = 5;
+
+		var dataset = null;
+
+		d3
+				.csv(
+						"query6.csv",
+						function(error, data) {
+							if (error)
+								return console.log(error);
+
+							//typecast Amount to #, calculate total, and cumulative amounts
+							var totalAmount = 0;
+							for (var i = 0; i < data.length; i++) {
+								data[i].Count = +data[i].Count;
+								totalAmount += data[i].Count;
+								if (i > 0) {
+									data[i]['CumulativeAmount'] = data[i].Count
+											+ data[i - 1].CumulativeAmount;
+								} else {
+									data[i]['CumulativeAmount'] = data[i].Count;
+								}
+							}
+							//now calculate cumulative % from the cumulative amounts & total, round %
+							for (var i = 0; i < data.length; i++) {
+								data[i]['CumulativePercentage'] = (data[i]['CumulativeAmount'] / totalAmount);
+								data[i]['CumulativePercentage'] = parseFloat(data[i]['CumulativePercentage']
+										.toFixed(2));
+							}
+
+							dataset = data;
+
+							//Axes and scales
+							var xScale = d3.scale.ordinal().rangeRoundBands(
+									[ 0, w ], 0.1);
+							xScale.domain(data.map(function(d) {
+								return d.InvestmentType;
+							}));
+
+							var yhist = d3.scale.linear().domain(
+									[ 0, d3.max(data, function(d) {
+										return d.Count;
+									}) ]).range([ h, 0 ]);
+
+							var ycum = d3.scale.linear().domain([ 0, 1 ])
+									.range([ h, 0 ]);
+
+							var xAxis = d3.svg.axis().scale(xScale).orient(
+									'bottom');
+
+							var yAxis = d3.svg.axis().scale(yhist).orient(
+									'left');
+
+							var yAxis2 = d3.svg.axis().scale(ycum).orient(
+									'right');
+
+							//Draw svg
+							var svg = d3.select("#chart").append("svg").attr(
+									"width", w + m.left + m.right).attr(
+									"height", h + m.top + m.bottom).append("g")
+									.attr(
+											"transform",
+											"translate(" + m.left + "," + m.top
+													+ ")");
+
+							//Draw histogram
+							var bar = svg.selectAll(".bar").data(data).enter()
+									.append("g").attr("class", "bar");
+
+							bar.append("rect").attr("x", function(d) {
+								return xScale(d.InvestmentType);
+							}).attr("width", xScale.rangeBand()).attr("y",
+									function(d) {
+										return yhist(d.Count);
+									}).attr("height", function(d) {
+								return h - yhist(d.Count);
+							});
+
+							//Draw CDF line
+							var guide = d3.svg.line().x(function(d) {
+								return xScale(d.InvestmentType);
+							}).y(function(d) {
+								return ycum(d.CumulativePercentage)
+							}).interpolate('basis');
+
+							var line = svg.append('path').datum(data).attr('d',
+									guide).attr('class', 'line');
+
+							//Draw axes
+							svg.append("g").attr("class", "x axis").attr(
+									"transform", "translate(0," + h + ")")
+									.call(xAxis);
+
+							svg.append("g").attr("class", "y axis").call(yAxis)
+									.append("text").attr("transform",
+											"rotate(-90)").attr("y", 6).attr(
+											"dy", ".71em").style("text-anchor",
+											"end").text("Count");
+
+							svg.append("g").attr("class", "y axis").attr(
+									"transform", "translate(" + [ w, 0 ] + ")")
+									.call(yAxis2).append("text").attr(
+											"transform", "rotate(-90)").attr(
+											"y", 4).attr("dy", "-.71em").style(
+											"text-anchor", "end").text(
+											"Cumulative %");
+						});
+	</script>
+</body>
+</html>

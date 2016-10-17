@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Banking Analysis System</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="tooplate_style.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css"
+	href="css/jquery.lightbox-0.5.css" />
+
+<!-- Arquivos utilizados pelo jQuery lightBox plugin -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="css/jquery.lightbox-0.5.css" media="screen" />
+<!-- / fim dos arquivos utilizados pelo jQuery lightBox plugin -->
+
+<!-- Ativando o jQuery lightBox plugin -->
+<script type="text/javascript">
+	$(function() {
+		$('.lightbox').lightBox();
+	});
+</script>
+
+</head>
+<body>
+
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=2033851346839497";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<script>
+		window.twttr = (function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+			if (d.getElementById(id))
+				return t;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://platform.twitter.com/widgets.js";
+			fjs.parentNode.insertBefore(js, fjs);
+
+			t._e = [];
+			t.ready = function(f) {
+				t._e.push(f);
+			};
+
+			return t;
+		}(document, "script", "twitter-wjs"));
+	</script>
+
+	<script>
+		window.___gcfg = {
+			lang : 'en-US',
+			parsetags : 'onload'
+		};
+	</script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script>
+		(function() {
+			var cx = '017643444788069204610:4gvhea_mvga'; // Insert your own Custom Search Engine ID here
+			var gcse = document.createElement('script');
+			gcse.type = 'text/javascript';
+			gcse.async = true;
+			gcse.src = (document.location.protocol == 'https' ? 'https:'
+					: 'http:')
+					+ '//www.google.com/cse/cse.js?cx=' + cx;
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(gcse, s);
+		})();
+	</script>
+
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+	<script>
+		$(function() {
+			$("#calendar").datepicker();
+		});
+	</script>
+
+
+
+	<div id="tooplate_wrapper">
+		<div id="tooplate_header">
+			<div id="site_title"></div>
+		</div>
+		<!-- end of forever header -->
+
+		<div id="tooplate_menu">
+			<ul>
+				<li><a href="Home.html">Home</a></li>
+				<li><a href="about.html">About Us</a></li>
+				<li><a href="gallery.html" class="current">Gallery</a></li>
+
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</div>
+		<!-- end of tooplate_menu -->
+
+		<div id="tooplate_main">
+
+
+			<div id="gallery">
+				<div class="gallery_box">
+					<img class="image_wrapper image_fl" src="images/countbar.png"
+						alt="image" />
+
+					<h2>Discrete Bar Chart</h2>
+					<p>We used this chart to show the frequency of each item of a
+						category, here in this case different banks are compared to show
+						which one is popular based on which bank is followed by most of
+						the people. On X-axis banks are considered and on the Y-axis
+						followers count is considered.</p>
+					<a class="more float_r"
+						href="http://cmaurer.github.io/angularjs-nvd3-directives/discrete.bar.chart.html"
+						target="_blank">View in Detail</a>
+					<div class="cleaner"></div>
+				</div>
+
+
+				<div id="gallery">
+					<div class="gallery_box">
+						<img class="image_wrapper image_fl" src="images/gallery/pie.png"
+							alt="image" />
+
+						<h2>Pie Chart Update</h2>
+						<p>We used this chart to show the proportional data
+							represented by each category is provided next to the
+							corresponding slice of pie. Here different types of loans are
+							differentiated based on interest of the people.</p>
+						<a class="more float_r"
+							href="https://gist.github.com/mbostock/1346395" target="_blank">View
+							in Detail</a>
+						<div class="cleaner"></div>
+					</div>
+				</div>
+
+
+				<div id="gallery">
+					<div class="gallery_box">
+						<img class="image_wrapper image_fl" src="images/pos&neg.jpg"
+							alt="image" />
+
+						<h2>Sentimental analysis chart</h2>
+						<p>We used this chart as we want two scales to construct a bar
+							chart for dealing the attitude of people towards banks. One
+							quantitative scale (typically a linear scale) to compute the bar
+							positions along the x-axis, and a second ordinal scale to compute
+							the bar positions along the y-axis.</p>
+						<a class="more float_r"
+							href="https://gist.github.com/mbostock/2368837/" target="_blank">View
+							in Detail</a>
+						<div class="cleaner"></div>
+					</div>
+				</div>
+
+
+				<div id="gallery">
+					<div class="gallery_box">
+						<img class="image_wrapper image_fl" src="images/radial.jpg"
+							alt="image" />
+
+						<h2>Radial Progress Bar</h2>
+						<p>We used this Bars to differentiate the share of commercial,
+							investment banks of USA when compared to all banks trending over
+							twitter. And compared to all other tweets of other banks.</p>
+						<a class="more float_r"
+							href="http://vizuly.io/product/radial-progress/?demo=d3js"
+							target="_blank">View in Detail</a> </br>
+
+						<div class="cleaner"></div>
+					</div>
+
+				</div>
+
+				<div class="cleaner"></div>
+			</div>
+
+			<div class="cleaner"></div>
+		</div>
+		<!-- end of main -->
+
+		<div id="tooplate_footer_wrapper">
+			<div id="tooplate_footer">
+
+				<div class="col_w280">
+					<h5>Quick Links</h5>
+					<ul class="tooplate_list">
+						<li><a href="Home.html">Home</a></li>
+						<li><a href="gallery.html">Gallery</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+
+					</ul>
+				</div>
+
+				<div class="col_w280">
+					<h5>&nbsp&nbsp&nbspShare</h5>
+
+					<ul class="tooplate_list">
+						<div class="fb-like" href="https://developers.facebook.com/docs/plugins/" layout="button_count" action="like" show-faces="true" share="true"></div>
+
+						</br>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost:8080/umkc.edu.sparktwitteranalysis/about.html" data-text="Check out this.....">Tweet</a>
+
+						</br>
+						<!-- Place this tag where you want the share button to render. -->
+						<div class="g-plus" data-action="share"></div>
+
+						</br>
+
+						<!-- Place this tag where you want the widget to render. -->
+						<div class="g-follow" data-annotation="bubble" data-height="20" data-href="//plus.google.com/u/0/100631431235598134170" data-rel="author"></div>
+
+					</ul>
+				</div>
+
+				<div class="tooplate_list">
+					<h5>Other Sites&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="gallery.html"><b>1</b></a> <a href="gallery2.html"><b>2</b></a></h5>
+
+					<li><a
+						href="http://www.ibm.com/analytics/us/en/industry/banking/"
+						target="_blank">IBM Analytics </a></li>
+
+					<li><a
+						href="http://www.ibmbigdatahub.com/blog/analytics-banking-services"
+						target="_blank">IBM Bigdata Blog</a></li>
+					
+				</div>
+
+
+				<div class="cleaner"></div>
+			</div>
+
+
+
+			<div id="tooplate_copyright">
+
+				Copyright © 2016 <a href="#">Banking Analysis System</a>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- end of wrapper -->
+</body>
+
+</html>

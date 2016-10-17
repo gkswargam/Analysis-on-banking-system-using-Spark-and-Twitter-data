@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>umkc.edu.sparktwitteranalysis</display-name>
+	<welcome-file-list>
+		<welcome-file>Home.html</welcome-file>
+		
+	</welcome-file-list>
+	
+	 <servlet>
+     <servlet-name>mail</servlet-name>
+     <servlet-class>mail</servlet-class>
+ </servlet>
+ 
+ <servlet-mapping>
+     <servlet-name>mail</servlet-name>
+     <url-pattern>/mail</url-pattern>
+ </servlet-mapping>
+</web-app>

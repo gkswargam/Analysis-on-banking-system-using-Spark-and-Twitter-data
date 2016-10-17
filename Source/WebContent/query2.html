@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Banking Analysis System</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="tooplate_style.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="css/nivo-slider.css" type="text/css"
+	media="screen" />
+<style>
+</style>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+	type="text/javascript"></script>
+<script src="js/jquery.nivo.slider.js" type="text/javascript"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+	<div id="tooplate_wrapper">
+		<div id="tooplate_header">
+			<div id="site_title"></div>
+		</div>
+		<!-- end of forever header -->
+
+		<div id="tooplate_menu">
+			<ul>
+				<li><a href="Home.html" class="current">Home</a></li>
+				<li><a href="about.html">About Us</a></li>
+				<li><a href="gallery.html">Gallery</a></li>
+				<li><a href="contact.html" class="last">Contact</a></li>
+			</ul>
+		</div>
+		<!-- end of tooplate_menu -->
+
+		<div id="tooplate_main">
+			<div id="tooplate_content">
+				<div id="homepage_slider">
+
+					<form id="form1" method="Post" action="BankAnalysisQueries">
+						<h1 align="center">
+							<font style="font-family: Times New Roman;"> Analytical
+								Queries</font>
+						</h1>
+						<br /> <br />
+						<table align="center" width="520">
+							<tr>
+								<td></td>
+								<td><font size="3">Select Query</font></td>
+								<td>:</td>
+								<td><select name="query_selection">
+										<option value="0">Select Query Option</option>
+										<option value="1">1. Popular Banks based on followers</option>
+										<option value="2">2. Most Interested Type of Loan</option>
+										<option value="3">3. People's Opinion on Bank Security</option>
+										<option value="4">4. Languages mostly used to tweet on Banks</option>
+										<option value="5">5. Most tweeted Time About Banks</option>
+										<option value="6">6. Type of Investment People
+											Interested in</option>
+										<option value="7">7. Service wise top 7 Banks</option>
+										<option value="8">8.Commercial Vs Investment Banks Tweet
+											Percentage</option>
+
+								</select></td>
+								<td><input type="submit" value="Submit"></td>
+							</tr>
+							
+						</table>
+
+
+					</form>
+
+
+
+				</div>
+				<p align="center">
+					<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMOST
+						INTERESTED TYPE OF LOAN </b>
+				</p>
+				<svg id="chart" style="width: 700; height: 400; padding-left: 50px;"></svg>
+
+			</div>
+
+			<div id="tooplate_sidebar">
+				<div class="sidbar_box">
+					<a href="#"><img src="images/logo2.jpg" alt="250x250 ad" /></a>
+				</div>
+
+			</div>
+			<div class="cleaner"></div>
+
+
+
+		</div>
+		<!-- end of main -->
+
+		<div id="tooplate_footer_wrapper">
+
+
+			<div id="tooplate_copyright">
+
+				Copyright © 2016 <a href="#">Banking Analysis System</a>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- end of wrapper -->
+
+
+	<script>
+		var width = 750, height = 400, radius = Math.min(width, height) / 2;
+
+		var color = d3.scale.ordinal().range(
+				[ "#bfff00", "#1affff", "#ff99ff", "#ccccff", "#ffdd99",
+						"#ff9966", "#ff8c00" ]);
+
+		var arc = d3.svg.arc().outerRadius(radius - 10)
+				.innerRadius(radius - 80);
+
+		var pie = d3.layout.pie().sort(null).value(function(d) {
+			return d.Count;
+		});
+
+		var svg = d3.select("#chart").append("svg").attr("width", width).attr(
+				"height", height).append("g").attr("transform",
+				"translate(" + width / 2 + "," + height / 2 + ")");
+
+		d3.csv("query2.csv", function(error, data) {
+
+			data.forEach(function(d) {
+				d.Count = +d.Count;
+			});
+
+			var g = svg.selectAll(".arc").data(pie(data)).enter().append("g")
+					.attr("class", "arc");
+
+			g.append("path").attr("d", arc).style("fill", function(d) {
+				return color(d.data.LoanType);
+			});
+
+			g.append("text").attr("transform", function(d) {
+				return "translate(" + arc.centroid(d) + ")";
+			}).attr("dy", ".35em").style("text-anchor", "middle").text(
+					function(d) {
+						return d.data.LoanType;
+					});
+
+		});
+	</script>
+
+</body>
+</html>
